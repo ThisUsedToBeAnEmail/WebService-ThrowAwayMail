@@ -16,6 +16,7 @@ WriteMakefile(
     },
     BUILD_REQUIRES => {
         'Test::More' => 0,
+        'Test::MockObject' => '1.20161202',
     },
     PREREQ_PM => {
         'Moo' => '2.003001',
@@ -25,4 +26,17 @@ WriteMakefile(
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'WebService-ThrowAwayMail-*' },
+    META_MERGE => {
+        'meta-spec' => { version => 2 },
+        resources => {
+            repository => {
+                type => 'git',
+                url  => 'https://github.com/ThisUsedToBeAnEmail/WebService-ThrowAwayMail.git',
+                web  => 'https://github.com/ThisUsedToBeAnEmail/WebService-ThrowAwayMail',
+            },
+        },
+    },
+    META_ADD => {
+        provides => Module::Metadata->provides(version => '2', dir => 'lib'),
+	}, 
 );
