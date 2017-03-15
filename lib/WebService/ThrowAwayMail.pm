@@ -1,22 +1,27 @@
 package WebService::ThrowAwayMail;
 
-our $VERSION = '0.01';
+our $VERSION = '0.03';
 
 use Moo;
-use MooX::LazierAttributes;
+use MooX::LazierAttributes qw/rw lzy/;
+use MooX::ValidateSubs;
+use Types::Standard qw/Object Str/;
  
 use HTTP::Tiny;
 use Carp qw/croak/;
 
 attributes (
-    tiny => [rw, HTTP::Tiny->new(),{lzy}],
-    base_url => [ro, 'https://throwawaymail.org/getalias/text', { lzy }],
+    tiny => [rw, Object, {lzy, default => sub {HTTP::Tiny->new}}],
+    base_url => [Str, {lzy, default => 'https://throwawaymail.org/getalias/text'}],
 );
+
+validate_subs [qw/get get_alias/] => [];
 
 sub get {
     my $response = $_[0]->tiny->get($_[0]->base_url);
     $response->{success} and return $response;
-    croak "something went terribly wrong" . $response;
+    croak sprintf "something went terribly wrong status - %s - reason - %s", 
+        $response->{status}, $response->{reason};
 }
 
 sub get_alias {
@@ -33,7 +38,7 @@ WebService::ThrowAwayMail - Perl client for throwawaymail.org API
 
 =head1 VERSION
 
-Version 0.01
+Version 0.03
 
 =cut
 
