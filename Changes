@@ -9,3 +9,7 @@ Revision history for WebService-ThrowAwayMail
 0.04    16/03/2017
         - Validate that only the parameters I expect get returned from my sub routines.
 
+0.05    16/03/2017
+        - Change get so that it accepts one optional parameter $self->get('http//..')
+
+
