@@ -25,7 +25,7 @@ is $alias, 'meh', 'okay a simple test';
 					 'content-type' => 'text/html'
 			   },
 	'protocol' => 'HTTP/1.1',
-	'status' => '404'
+	'status' => '404',
 };});
 
 my $dead_client = WebService::ThrowAwayMail->new(
@@ -39,6 +39,14 @@ like($death, qr/^something went terribly wrong/, "caught the carp");
 eval { $client->get_alias('nothing allowed') };
 my $no_params = $@;
 like($no_params, qr/Error - Invalid count in params for sub - get_alias - expected - 0 - got - 1/, "no params allowed");
+
+(my $tiny_url = Test::MockObject->new)->mock('get', sub { return { url => $_[1], content => 'meh', success => 1 } });
+
+my $get_client = WebService::ThrowAwayMail->new(
+    tiny => $tiny_url,
+);
+
+is($get_client->get('another_url')->{url}, 'another_url', 'expected url blah');
 
 done_testing();
 

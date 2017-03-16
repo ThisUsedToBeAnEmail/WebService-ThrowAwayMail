@@ -23,7 +23,7 @@ WriteMakefile(
     PREREQ_PM => {
         'Moo' => '2.003001',
         'MooX::LazierAttributes' => '0.13',
-        'MooX::ValidateSubs' => '0.06',
+        'MooX::ValidateSubs' => '0.08',
         'Type::Tiny' => '1.000006',
         'HTTP::Tiny' => '0.054', 
         'Carp' => 0,

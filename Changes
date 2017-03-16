@@ -5,3 +5,7 @@ Revision history for WebService-ThrowAwayMail
 
 0.03    15/03/2017
         - Validate that no parameters can be passed to sub routines get and get_alias
+
+0.04    16/03/2017
+        - Validate that only the parameters I expect get returned from my sub routines.
+
